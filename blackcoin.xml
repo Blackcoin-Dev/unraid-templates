@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>Blackcoin-Quantum-Quasar</Name>
+  <Repository>qqblackcoin/blackcoin-v4-gui:latest</Repository>
+  <Registry>https://hub.docker.com/r/qqblackcoin/blackcoin-v4-gui</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://forums.unraid.net/</Support>
+  <Project>https://blackcoin.org</Project>
+  <Overview>The world's first Proof of Stake coin, now upgraded with Quantum Resistance. This container provides a full headless node accessible instantly via a web browser VNC interface. Help secure the network and stake your coins!</Overview>
+  <Category>Network: WebServers: Productivity:</Category>
+  <WebUI>http://[IP]:[PORT:8080]/vnc.html</WebUI>
+  <TemplateURL/>
+  <Icon>https://blackcoin.org/images/logo.png</Icon>
+  <ExtraParams>--restart unless-stopped</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <Requires/>
+  <Config Name="WebUI Port" Target="8080" Default="9595" Mode="tcp" Description="The port to access the visual Wallet UI in your browser" Type="Port" Display="always" Required="true" Mask="false">9595</Config>
+  <Config Name="P2P Port" Target="15714" Default="15714" Mode="tcp" Description="The P2P network port for connecting to other nodes" Type="Port" Display="always" Required="true" Mask="false">15714</Config>
+  <Config Name="Appdata Directory" Target="/home/blackcoin/.blackcoin" Default="/mnt/user/appdata/blackcoin" Mode="rw" Description="Location to safely store the blockchain data and your wallet.dat file" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/blackcoin</Config>
+</Container>
