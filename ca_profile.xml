@@ -1,8 +1,7 @@
-<?xml version="1.0"?>
-<Profile>
-  <Support>https://forums.unraid.net/</Support>
+<?xml version="1.0" encoding="utf-8"?>
+<CommunityApplications>
+  <Profile>Official Unraid templates for the Blackcoin-Dev organization. Building Quantum Resistant Proof of Stake architecture.</Profile>
+  <WebPage>https://blackcoin.org</WebPage>
   <Forum>https://forums.unraid.net/</Forum>
-  <Website>https://blackcoin.org</Website>
-  <About>Official Unraid templates for the Blackcoin-Dev organization.</About>
   <Discord>https://discord.gg/blackcoin</Discord>
-</Profile>
+</CommunityApplications>
