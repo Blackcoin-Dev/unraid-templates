@@ -56,7 +56,9 @@ active helper using the `org.blackcoin.public-publisher=true` Docker label and
 `docker logs --tail 80` on its exact container ID. Cleanup uses a unique per-run
 CID file, never adopts or stops another same-name container.
 
-The coordinator installs the separate native 15-minute cron entry; GitHub CI
+The separate native 15-minute cron entry was installed September 13, 2026 at
+23:57:12 UTC. Its exact scheduled launcher passed a no-change check at 23:57:22
+UTC (exit 0, `status=current`), without a build, push or node restart. GitHub CI
 does not duplicate that scheduler. Standard public CI runs deterministic unit
 tests. Native release qualification is run once per exact image ID, not once per
 timer tick. No-change reconciliation performs no build, push or fleet restart.

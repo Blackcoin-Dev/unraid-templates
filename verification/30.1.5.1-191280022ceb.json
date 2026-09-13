@@ -19,5 +19,15 @@
   ],
   "offline_tests_passed": 44,
   "source_ci": "https://github.com/Blackcoin-Dev/unraid-templates/actions/runs/34790946506",
-  "scope_exclusions": ["existing-wallet migration", "mainnet synchronization", "fleet deployment", "third-party certification"]
+  "scope_exclusions": ["existing-wallet migration", "mainnet synchronization", "fleet deployment", "third-party certification"],
+  "native_schedule": {
+    "interval_minutes": 15,
+    "installed_at": "2026-09-13T23:57:12Z",
+    "verified_noop_at": "2026-09-13T23:57:22Z",
+    "noop_exit": 0,
+    "noop_status": "current",
+    "launcher_sha256": "7f90959bd6708fe6129903043d4f9ddb548a1111a4927c240be637cd79ff75df",
+    "cron_sha256": "891a26804d15db7c44c205ad3329ca0761316d4823bc683b5a55ae0ed1b20f09",
+    "no_build_push_or_restart": true
+  }
 }

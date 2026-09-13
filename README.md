@@ -53,7 +53,8 @@ checksums. It excludes drafts, prereleases and unreleased Core master. It builds
 only missing candidates and reuses completed image/test results after a push
 failure. Version downgrades and conflicting immutable tags are refused.
 
-The separate native 15-minute scheduler uses one full-operation lock. No-change
+The separate native 15-minute scheduler is installed and its no-change path was
+verified September 13, 2026. It uses one full-operation lock. No-change
 runs perform no build, push or node restart. Wrapper source is pinned and needs
 an explicit reviewed update; new Git source is not automatically executed.
 See [PUBLISHING.md](PUBLISHING.md) for the command, boundaries and receipts.
