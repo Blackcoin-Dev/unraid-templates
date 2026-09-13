@@ -14,7 +14,7 @@
   <WebUI>http://[IP]:[PORT:8080]/vnc.html</WebUI>
   <TemplateURL/>
   <Icon>https://blackcoin.org/images/logo.png</Icon>
-  <ExtraParams>--restart unless-stopped</ExtraParams>
+  <ExtraParams>--restart unless-stopped --stop-timeout 150</ExtraParams>
   <PostArgs/>
   <CPUset/>
   <Requires/>

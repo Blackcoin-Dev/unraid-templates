@@ -1,0 +1,66 @@
+name: Public wrapper checks
+
+on:
+  push:
+    paths: [Dockerfile, runtime/**, tools/**, tests/**, .github/workflows/reconcile.yml]
+  pull_request:
+    paths: [Dockerfile, runtime/**, tools/**, tests/**, .github/workflows/reconcile.yml]
+  workflow_dispatch:
+    inputs:
+      legacy_bootstrap:
+        description: Permit only the exact reviewed historical latest digest for first validation
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+# GitHub never publishes; the native Unraid publisher holds the publication lock.
+concurrency:
+  group: unraid-checks-${{ github.event_name == 'pull_request' && github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  source:
+    name: Offline source checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.0
+        with:
+          persist-credentials: false
+      - run: python3 -m unittest discover -s tests -v
+
+  native:
+    name: Optional native amd64 validation
+    if: github.event_name == 'workflow_dispatch'
+    needs: source
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      WRAPPER_REVISION: ${{ github.sha }}
+      GH_TOKEN: ${{ github.token }}
+      LEGACY_BOOTSTRAP: ${{ inputs.legacy_bootstrap }}
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.0
+        with:
+          persist-credentials: false
+      - name: Run the same native implementation without publication
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(uname -m)" = x86_64
+          extra=()
+          if [[ "$LEGACY_BOOTSTRAP" == true ]]; then extra+=(--allow-legacy-bootstrap); fi
+          python3 tools/reconcile.py --validate-only --wrapper "$WRAPPER_REVISION" --state .state "${extra[@]}"
+      - name: Retain bounded public verification records
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: native-validation-records-${{ github.sha }}-${{ github.run_attempt }}
+          path: |
+            .state/last-resolved.json
+            .state/builds/*/release-lock.json
+            .state/builds/*/gui-receipt.json
+          if-no-files-found: ignore
+          retention-days: 14

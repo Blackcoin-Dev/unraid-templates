@@ -1,0 +1,8 @@
+**
+!Dockerfile
+!bin/
+!bin/*
+!runtime/
+!runtime/*
+!LICENSE
+!COPYING.core
