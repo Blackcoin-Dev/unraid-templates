@@ -158,7 +158,7 @@ class Docker:
             self.versions[image_id] = self.command("run", "--rm", "--network", "none", "--read-only",
                 "--cap-drop", "ALL", "--security-opt", "no-new-privileges", "--user", "10001",
                 "--tmpfs", "/tmp:rw,nosuid,nodev,size=32m", "-e", "HOME=/tmp",
-                "-e", "QT_QPA_PLATFORM=offscreen", "--entrypoint", "blackcoin-qt", image, "-version", timeout=60)
+                "--entrypoint", "python3", image, "/usr/local/lib/blackcoin-gui/version.py", timeout=60)
         validate_version(self.versions[image_id], expected)
         return image_id
 

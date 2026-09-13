@@ -212,8 +212,7 @@ def qualify(image):
                                  mounted=True)
         require(json.loads(clean) == {"uid": 1000, "files": []}, "fresh image volume contains embedded data or secrets")
         checks.append("clean-volume")
-        version = fixture.one_shot("version", "blackcoin-qt", "-version",
-                                   environment=("--env", "QT_QPA_PLATFORM=offscreen"))
+        version = fixture.one_shot("version", "python3", "/usr/local/lib/blackcoin-gui/version.py")
         validate_version(version, receipt["core_version"], receipt["core_source"])
         checks.append("core-version")
         fixture.start()

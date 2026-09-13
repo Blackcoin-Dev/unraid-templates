@@ -12,13 +12,14 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-ins
     && dpkg-query -W > /usr/share/doc/blackcoin-gui/runtime-packages.txt
 COPY --chmod=0755 bin/ /usr/local/bin/
 COPY --chmod=0644 runtime/supervise.py /usr/local/lib/blackcoin-gui/supervise.py
+COPY --chmod=0644 runtime/version.py /usr/local/lib/blackcoin-gui/version.py
 COPY --chmod=0755 runtime/start-gui.sh /home/blackcoin/start-gui.sh
 COPY --chmod=0644 LICENSE COPYING.core /usr/share/doc/blackcoin-gui/
 RUN chmod 0755 /usr/local/bin /usr/local/lib/blackcoin-gui /usr/share/doc/blackcoin-gui
 ENV HOME=/home/blackcoin DISPLAY=:0 PYTHONUNBUFFERED=1
 USER 1000:1000
 WORKDIR /home/blackcoin
-RUN QT_QPA_PLATFORM=offscreen blackcoin-qt -version
+RUN python3 /usr/local/lib/blackcoin-gui/version.py
 ARG CORE_VERSION
 ARG CORE_SOURCE
 ARG CORE_ARCHIVE_SHA256
