@@ -51,7 +51,7 @@ timeout --signal=TERM --kill-after=120s 45m docker run --rm --name "$NAME" --cid
   --mount type=bind,src=/usr/libexec/docker/cli-plugins/docker-buildx,dst=/usr/local/lib/docker/cli-plugins/docker-buildx,readonly \
   --mount type=bind,src=/root/.docker/config.json,dst=/root/.docker/config.json,readonly \
   "$HELPER" python3 "$SOURCE/tools/reconcile.py" --wrapper "$WRAPPER" --state "$ROOT/state" "${EXTRA[@]}" \
-  2>&1 | tail -c 131072 > "$ROOT/logs/current.log"
+  2>&1 | tail --bytes=131072 > "$ROOT/logs/current.log"
 STATUS=${PIPESTATUS[0]}
 set -e
 printf '%s exit=%s\n' "$(date -u +%FT%TZ)" "$STATUS" >> "$ROOT/logs/current.log"
